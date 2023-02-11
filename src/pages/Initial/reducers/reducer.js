@@ -1,15 +1,15 @@
 const initialState = {
   availableItems: [
-    'как+выучить+js',
-    'somePath',
-    'Картинка',
-    'anotherPath',
+    "как+выучить+js",
+    "illustrations",
+    "Картинка",
+    "anotherPath",
   ],
 };
 
-export default (state = initialState, {type, payload}) => {
+export default (state = initialState, { type, payload }) => {
   switch (type) {
-
-    default: return state;
+    default:
+      return state;
   }
-}
+};

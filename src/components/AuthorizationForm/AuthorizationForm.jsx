@@ -1,89 +1,84 @@
-import { makeStyles } from '@material-ui/core/styles';
-import { useIntl } from 'react-intl';
-import { useDispatch, useSelector } from 'react-redux';
-import Button from 'components/Button';
-import PropTypes from 'prop-types';
-import React, { useState, useEffect } from 'react';
-import Tab from 'components/Tab';
-import TabContent from 'components/TabContent';
-import Tabs from 'components/Tabs';
-import TabsContent from 'components/TabsContent';
-import TextField from 'components/TextField';
-import Typography from 'components/Typography';
+import { makeStyles } from "@material-ui/core/styles";
+import { useIntl } from "react-intl";
+import { useDispatch, useSelector } from "react-redux";
+import Button from "components/Button";
+import PropTypes from "prop-types";
+import React, { useState, useEffect } from "react";
+import Tab from "components/Tab";
+import TabContent from "components/TabContent";
+import Tabs from "components/Tabs";
+import TabsContent from "components/TabsContent";
+import TextField from "components/TextField";
+import Typography from "components/Typography";
 
-import {
-  fetchSignIn,
-  fetchSignUpAndSignIn,
-} from 'app/actions/user';
+import { fetchSignIn, fetchSignUpAndSignIn } from "app/actions/user";
 
 const getClasses = makeStyles(() => ({
   actionItem: {
-    padding: '4px 0px',
+    padding: "4px 0px",
   },
   actionsContainer: {
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'center',
-    margin: '-4px 0px',
-    width: '100%',
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "center",
+    margin: "-4px 0px",
+    width: "100%",
   },
   container: {
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'center',
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "center",
   },
   fullWidth: {
-    width: '100%',
+    width: "100%",
   },
   justifyCenter: {
-    justifyContent: 'center',
+    justifyContent: "center",
   },
   inputField: {
-    width: '100%',
+    width: "100%",
   },
   loadingContainer: {
-    alignItems: 'center',
-    display: 'flex',
-    height: '128px',
-    justifyContent: 'center'
+    alignItems: "center",
+    display: "flex",
+    height: "128px",
+    justifyContent: "center",
   },
   tabContent: {
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-    padding: '24px',
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    padding: "24px",
   },
   paddingLeft: {
-    paddingLeft: '8px',
+    paddingLeft: "8px",
   },
   paddingLeft3x: {
-    paddingLeft: '24px',
+    paddingLeft: "24px",
   },
   paddingTop2x: {
-    paddingTop: '16px',
+    paddingTop: "16px",
   },
   paddingTop3x: {
-    paddingTop: '24px',
+    paddingTop: "24px",
   },
   paddingTop4x: {
-    paddingTop: '32px',
+    paddingTop: "32px",
   },
 }));
 
 const AVAILABLE_TABS = {
-  login: 'login',
-  register: 'register',
+  login: "login",
+  register: "register",
 };
 
 const initialState = {
-  login: '',
-  password: '',
+  login: "",
+  password: "",
   selectedTab: AVAILABLE_TABS.login,
 };
 
-const AuthorizationForm = ({
-  onSuccess,
-}) => {
+const AuthorizationForm = ({ onSuccess }) => {
   const classes = getClasses();
   const dispatch = useDispatch();
   const user = useSelector(({ user }) => user);
@@ -100,9 +95,7 @@ const AuthorizationForm = ({
     <div className={classes.container}>
       {user.isFetchingUser && (
         <div className={classes.loadingContainer}>
-          <Typography>
-            Loading...
-          </Typography>
+          <Typography>Loading...</Typography>
         </div>
       )}
       {!user.isFetchingUser && (
@@ -119,34 +112,33 @@ const AuthorizationForm = ({
           >
             <Tab
               label={formatMessage({
-                id: 'signIn',
+                id: "signIn",
               })}
               value={AVAILABLE_TABS.login}
             />
             <Tab
               label={formatMessage({
-                id: 'signUp',
+                id: "signUp",
               })}
               value={AVAILABLE_TABS.register}
             />
           </Tabs>
           <TabsContent value={state.selectedTab}>
-            <TabContent
-              key={AVAILABLE_TABS.login}
-              value={AVAILABLE_TABS.login}
-            >
+            <TabContent key={AVAILABLE_TABS.login} value={AVAILABLE_TABS.login}>
               <div className={classes.tabContent}>
                 <div className={classes.inputField}>
                   <TextField
                     fullWidth
                     key="login"
                     label={formatMessage({
-                      id: 'login',
+                      id: "login",
                     })}
-                    onChange={({ target }) => setState(prevState => ({
-                      ...prevState,
-                      login: target.value,
-                    }))}
+                    onChange={({ target }) =>
+                      setState((prevState) => ({
+                        ...prevState,
+                        login: target.value,
+                      }))
+                    }
                     value={state.login}
                   />
                 </div>
@@ -158,12 +150,14 @@ const AuthorizationForm = ({
                         inputType="password"
                         key="password"
                         label={formatMessage({
-                          id: 'password',
+                          id: "password",
                         })}
-                        onChange={({ target }) => setState(prevState => ({
-                          ...prevState,
-                          password: target.value,
-                        }))}
+                        onChange={({ target }) =>
+                          setState((prevState) => ({
+                            ...prevState,
+                            password: target.value,
+                          }))
+                        }
                         value={state.password}
                       />
                     </div>
@@ -176,14 +170,18 @@ const AuthorizationForm = ({
                         <Button
                           disabled={user.isFetchingUser}
                           fullWidth
-                          onClick={() => dispatch(fetchSignIn({
-                            login: state.login,
-                            password: state.password,
-                          }))}
+                          onClick={() =>
+                            dispatch(
+                              fetchSignIn({
+                                login: state.login,
+                                password: state.password,
+                              })
+                            )
+                          }
                           variant="outlined"
                         >
                           <Typography variant="button">
-                            {formatMessage({ id: 'signIn' })}
+                            {formatMessage({ id: "signIn" })}
                           </Typography>
                         </Button>
                       </div>
@@ -203,12 +201,14 @@ const AuthorizationForm = ({
                       fullWidth
                       key="login"
                       label={formatMessage({
-                        id: 'login',
+                        id: "login",
                       })}
-                      onChange={({ target }) => setState(prevState => ({
-                        ...prevState,
-                        login: target.value,
-                      }))}
+                      onChange={({ target }) =>
+                        setState((prevState) => ({
+                          ...prevState,
+                          login: target.value,
+                        }))
+                      }
                       value={state.login}
                     />
                   </div>
@@ -221,12 +221,14 @@ const AuthorizationForm = ({
                         inputType="password"
                         key="password"
                         label={formatMessage({
-                          id: 'password',
+                          id: "password",
                         })}
-                        onChange={({ target }) => setState(prevState => ({
-                          ...prevState,
-                          password: target.value,
-                        }))}
+                        onChange={({ target }) =>
+                          setState((prevState) => ({
+                            ...prevState,
+                            password: target.value,
+                          }))
+                        }
                         value={state.password}
                       />
                     </div>
@@ -239,14 +241,18 @@ const AuthorizationForm = ({
                         <Button
                           disabled={user.isFetchingSignUp}
                           fullWidth
-                          onClick={() => dispatch(fetchSignUpAndSignIn({
-                            login: state.login,
-                            password: state.password,
-                          }))}
+                          onClick={() =>
+                            dispatch(
+                              fetchSignUpAndSignIn({
+                                login: state.login,
+                                password: state.password,
+                              })
+                            )
+                          }
                           variant="outlined"
                         >
                           <Typography variant="button">
-                            {formatMessage({ id: 'signUp' })}
+                            {formatMessage({ id: "signUp" })}
                           </Typography>
                         </Button>
                       </div>
@@ -259,7 +265,7 @@ const AuthorizationForm = ({
         </>
       )}
     </div>
-  )
+  );
 };
 
 AuthorizationForm.propTypes = {
