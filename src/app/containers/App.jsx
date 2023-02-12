@@ -37,14 +37,14 @@ const App = () => {
             <Route path={`/${PAGES.INITIAL}`}>
               <PageInitial />
             </Route>
-            <Route path={`/${PAGES.ILLUSTRATIONS}`}>
-              <Illustrations />
-            </Route>
             <Route path={`/${PAGES.ILLUSTRATION_NEW}`}>
               <AddIllustration />
             </Route>
             <Route path={`/${PAGES.ILLUSTRATION_EDIT}`}>
               <UpdateIllustration />
+            </Route>
+            <Route path={`/${PAGES.ILLUSTRATIONS}`}>
+              <Illustrations />
             </Route>
             <Redirect from="*" to={`/${PAGES.INITIAL}`} />
           </Switch>
