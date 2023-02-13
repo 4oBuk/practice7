@@ -2,6 +2,7 @@ import React from "react";
 import { Button } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import { Link } from "react-router-dom";
+import { deleteById } from "../../../app/actions/illustration";
 // todo move to components folder
 const getClasses = makeStyles(() => ({
   container: {
@@ -16,6 +17,7 @@ const getClasses = makeStyles(() => ({
 const Illustration = ({ illustration }) => {
   const classes = getClasses();
   const deleteButtonClick = (e, id) => {
+    const result = deleteById(id);
     console.log("delete", id);
   };
   return (

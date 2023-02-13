@@ -1,11 +1,15 @@
 import config from "../../config";
-import { getJson } from "../../requests";
-import { ILLUSTRATION_GET_ALL } from "../constants/actionTypes";
+import { fetchDelete, getJson } from "../../requests";
+import {
+  ILLUSTRATION_GET_ALL,
+  ILLUSTRATION_DELETE,
+} from "../constants/actionTypes";
 
 const receiveIllustrations = (illustrations) => ({
   type: ILLUSTRATION_GET_ALL,
-  payload: illustrations
+  payload: illustrations,
 });
+
 const getIllustrations = () => {
   const { BASE_URL, ILLUSTRATION_GET_ALL } = config;
   return getJson({
@@ -29,4 +33,18 @@ export const fetchIllustrations = () => (dispatch) => {
     dispatch(receiveIllustrations(illustrations));
   });
   // .catch(() => dispatch(errorReceiveUser()));
+};
+
+export const deleteById = (id) => {
+  const { BASE_URL, ILLUSTRATION_DELETE } = config;
+  const uri = `${BASE_URL}${ILLUSTRATION_DELETE.replace(":id", id)}`;
+  return fetchDelete({
+    url: uri,
+  })
+    .then((response) => {
+      return response.ok;
+    })
+    .catch(() => {
+      return false;
+    });
 };
