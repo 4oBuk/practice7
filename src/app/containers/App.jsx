@@ -24,7 +24,6 @@ const App = () => {
       componentDidMount: true,
     }));
   }, []);
-
   return (
     <BrowserRouter>
       <IntlProvider>

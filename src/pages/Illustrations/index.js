@@ -1,23 +1,35 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Illustration from "./illustration/Illustration";
-import IllustrationForm from "./illustration/IllustrationForm";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchIllustrations } from "../../app/actions/illustration";
 
 const Illustrations = () => {
-  const illustrations = [
-    { id: 2, name: "ill2", aiGenerated: false },
-    { id: 3, name: "ill3", aiGenerated: false },
-    { id: 4, name: "ill4", aiGenerated: false },
-    {
-      id: 5,
-      name: "ill5",
-    },
-  ];
+  // Access the store via the `useContext` hook
+  const [state, setState] = useState({
+    componentDidMount: false,
+  });
+
+  const dispatch = useDispatch();
+  useEffect(() => {
+    if (!state.componentDidMount) {
+      dispatch(fetchIllustrations());
+      setState((prevState) => ({
+        ...prevState,
+        componentDidMount: true,
+      }));
+    }
+  }, []);
+  const ills = useSelector((state) => state.illustrations).illustrations;
   return (
     <>
-      <h2>list</h2>
-      {illustrations.map((i) => (
-        <Illustration illustration={i} />
-      ))}
+      {state.componentDidMount && (
+        <>
+          <h2>list</h2>
+          {ills.map((i) => (
+            <Illustration illustration={i} />
+          ))}
+        </>
+      )}
     </>
   );
 };

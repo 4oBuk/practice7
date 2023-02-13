@@ -11,7 +11,7 @@ import {
   SUCCESS_SIGN_IN,
   SUCCESS_SIGN_OUT,
   SUCCESS_SIGN_UP,
-} from '../constants/actionTypes';
+} from "../constants/actionTypes";
 
 const initialState = {
   authorities: [],

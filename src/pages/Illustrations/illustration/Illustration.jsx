@@ -1,5 +1,4 @@
-import React, { useState } from "react";
-import { ILLUSTRATION_EDIT } from "../../../constants/pages";
+import React from "react";
 import { Button } from "@material-ui/core";
 // todo move to components folder
 const Illustration = ({ illustration }) => {
@@ -8,11 +7,16 @@ const Illustration = ({ illustration }) => {
       <div>
         <p>{illustration.name}</p>
         <p>{illustration.aiGenerated ? "yes" : "no"}</p>
-        <Button onClick={console.log("edit button")}>edit</Button>
+        <Button onClick={editButtonClick}>edit</Button>
         <br />
-        <Button onClick={console.log("delete button")}>delete</Button>
+        <Button onClick={deleteButtonClick}>delete</Button>
       </div>
     </>
   );
 };
+const editButtonClick = () => {
+
+};
+const deleteButtonClick = () => {};
+
 export default Illustration;
