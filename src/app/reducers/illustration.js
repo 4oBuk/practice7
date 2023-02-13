@@ -13,7 +13,6 @@ export default function (state = initialState, action) {
   switch (action.type) {
     case ILLUSTRATION_GET_ALL: {
       const { payload } = action;
-      console.log("payload", payload);
       return {
         ...state,
         illustrations: payload,

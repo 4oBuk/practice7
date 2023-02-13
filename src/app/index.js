@@ -12,11 +12,7 @@ const rootReducer = combineReducers({
   illustrations: illustrationsReducer,
 });
 
-const store = createStore(
-  rootReducer,
-  applyMiddleware(thunkMiddleware)
-  // window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
-);
+const store = createStore(rootReducer, applyMiddleware(thunkMiddleware));
 
 export default () => (
   <Provider store={store}>
