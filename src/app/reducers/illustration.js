@@ -18,6 +18,13 @@ export default function (state = initialState, action) {
         illustrations: payload,
       };
     }
+    case ILLUSTRATION_DELETE: {
+      console.log("action", action);
+        return {
+          ...state,
+          illustrations: state.illustrations.filter(i => i.id !== action.payload.id)
+        }
+    }
     default:
       return state;
   }

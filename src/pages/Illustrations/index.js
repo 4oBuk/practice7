@@ -1,9 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, {useEffect, useMemo, useState} from "react";
 import Illustration from "./illustration/Illustration";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchIllustrations } from "../../app/actions/illustration";
+import { deleteIllustration, fetchIllustrations } from "../../app/actions/illustration";
 import { makeStyles } from "@material-ui/core/styles";
 import { Link } from "react-router-dom";
+import { Button } from "@material-ui/core";
 
 const getClasses = makeStyles(() => ({
   container: {
@@ -17,12 +18,21 @@ const getClasses = makeStyles(() => ({
 }));
 
 const Illustrations = () => {
-  // Access the store via the `useContext` hook
   const classes = getClasses();
+  // useSelector((state) => state.illustrations).illustrations,
   const [state, setState] = useState({
     componentDidMount: false,
   });
-
+  const deleteButtonClick = (e, id) => {
+    dispatch(deleteIllustration(id));
+    // console.log("delete");
+    // const result = deleteById(id);
+    // setState({
+    //   ...state,
+    //   componentDidMount: false,
+    // });
+    // return result;
+  };
   const dispatch = useDispatch();
   useEffect(() => {
     if (!state.componentDidMount) {
@@ -32,7 +42,7 @@ const Illustrations = () => {
         componentDidMount: true,
       }));
     }
-  }, []);
+  }, [state.componentDidMount, dispatch]);
   const ills = useSelector((state) => state.illustrations).illustrations;
   return (
     <>
@@ -47,7 +57,15 @@ const Illustrations = () => {
       {state.componentDidMount && (
         <>
           {ills.map((i) => (
-            <Illustration illustration={i} key={i.id} />
+            <div className={classes.container}>
+              <Illustration illustration={i} key={i.id} />
+              <div className={classes.item}>
+                <Link to={`/illustrations/${i.id}/edit`}>edit</Link>
+                <Button onClick={(e) => deleteButtonClick(e, i.id)}>
+                  delete
+                </Button>
+              </div>
+            </div>
           ))}
         </>
       )}
