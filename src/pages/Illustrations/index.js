@@ -25,13 +25,6 @@ const Illustrations = () => {
   });
   const deleteButtonClick = (e, id) => {
     dispatch(deleteIllustration(id));
-    // console.log("delete");
-    // const result = deleteById(id);
-    // setState({
-    //   ...state,
-    //   componentDidMount: false,
-    // });
-    // return result;
   };
   const dispatch = useDispatch();
   useEffect(() => {

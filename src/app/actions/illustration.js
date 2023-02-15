@@ -3,6 +3,7 @@ import { fetchDelete, getJson } from "../../requests";
 import {
   ILLUSTRATION_GET_ALL,
   ILLUSTRATION_DELETE,
+  ILLUSTRATION_GET_BY_ID,
 } from "../constants/actionTypes";
 
 const receiveIllustrations = (illustrations) => ({
@@ -12,6 +13,11 @@ const receiveIllustrations = (illustrations) => ({
 
 const removeIllustration = (data) => ({
   type: ILLUSTRATION_DELETE,
+  payload: data,
+});
+
+const getIllustration = (data) => ({
+  type: ILLUSTRATION_GET_BY_ID,
   payload: data,
 });
 
@@ -40,10 +46,9 @@ export const fetchIllustrations = () => (dispatch) => {
   // .catch(() => dispatch(errorReceiveUser()));
 };
 
-export const deleteById = (id) => {
+const deleteById = (id) => {
   const { BASE_URL, ILLUSTRATION_DELETE } = config;
   const uri = `${BASE_URL}${ILLUSTRATION_DELETE.replace(":id", id)}`;
-  console.log("uri", uri);
   return fetchDelete({
     url: uri,
   })
@@ -62,9 +67,33 @@ export const deleteById = (id) => {
 };
 
 export const deleteIllustration = (id) => (dispatch) => {
-  console.log(dispatch);
   return deleteById(id).then((data) => {
-    console.log("data", data);
     dispatch(removeIllustration(data));
   });
+  //   todo add catch method
+};
+
+export const getIllustrationById = (id) => (dispatch) => {
+  return requestById(id).then((data) => {
+    dispatch(getIllustration(data));
+  });
+};
+const requestById = (id) => {
+  const { BASE_URL, ILLUSTRATION_GET } = config;
+  const uri = `${BASE_URL}${ILLUSTRATION_GET.replace(":id", id)}`;
+  return getJson({
+    url: uri,
+  })
+    .then((json) => {
+      return {
+        illustration: json,
+        isFound: true,
+      };
+    })
+    .catch((json) => {
+      return {
+        message: json,
+        isFound: false,
+      };
+    });
 };

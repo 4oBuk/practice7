@@ -4,6 +4,7 @@ import {
   ILLUSTRATION_DELETE,
   ILLUSTRATION_UPDATE,
 } from "../constants/actionTypes";
+import { act } from "react-dom/test-utils";
 
 const initialState = {
   illustrations: [],
@@ -19,11 +20,21 @@ export default function (state = initialState, action) {
       };
     }
     case ILLUSTRATION_DELETE: {
-      console.log("action", action);
-        return {
-          ...state,
-          illustrations: state.illustrations.filter(i => i.id !== action.payload.id)
-        }
+      return {
+        ...state,
+        // todo: rewrite this
+        illustrations: state.illustrations.filter(
+          (i) => i.id !== action.payload.id
+        ),
+      };
+    }
+    case ILLUSTRATION_GET_BY_ID: {
+      const found = action.payload.isFound;
+      console.log(found ? null : action.payload.illustration);
+      return {
+        ...state,
+        requestedIllustration: found ? action.payload.illustration : null,
+      };
     }
     default:
       return state;

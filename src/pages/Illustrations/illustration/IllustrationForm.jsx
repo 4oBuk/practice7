@@ -9,18 +9,18 @@ import {
   RadioGroup,
 } from "@material-ui/core";
 
-const IllustrationForm = () => {
+const IllustrationForm = ({ illustration }) => {
   return (
     <>
       <h2>Hello</h2>
       <div>
-        <TextField id="filled-basic" label="User ID" variant="filled" />
+        <TextField id="filled-basic" label="User ID" variant="filled" value={illustration.artist.id} />
       </div>
       <div>
         <FormLabel id="demo-radio-buttons-group-label">AI Generated</FormLabel>
         <RadioGroup
           aria-labelledby="demo-radio-buttons-group-label"
-          defaultValue="false"
+          defaultValue={illustration.aiGenerated ? "true" : "false"}
           name="radio-buttons-group"
         >
           <FormControlLabel value="true" control={<Radio />} label="True" />
@@ -28,7 +28,7 @@ const IllustrationForm = () => {
         </RadioGroup>
       </div>
       <div>
-        <TextField id="filled-basic" label="Name" variant="filled" />
+        <TextField id="filled-basic" label="Name" variant="filled" value={illustration.name}/>
       </div>
     </>
   );
