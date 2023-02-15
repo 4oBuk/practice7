@@ -1,14 +1,20 @@
 import config from "../../config";
-import { fetchDelete, getJson } from "../../requests";
+import { fetchDelete, getJson, putJson } from "../../requests";
 import {
   ILLUSTRATION_GET_ALL,
   ILLUSTRATION_DELETE,
   ILLUSTRATION_GET_BY_ID,
+  ILLUSTRATION_UPDATE,
 } from "../constants/actionTypes";
 
 const receiveIllustrations = (illustrations) => ({
   type: ILLUSTRATION_GET_ALL,
   payload: illustrations,
+});
+
+const update = (updatedIllustration) => ({
+  type: ILLUSTRATION_UPDATE,
+  payload: updatedIllustration,
 });
 
 const removeIllustration = (data) => ({
@@ -96,4 +102,29 @@ const requestById = (id) => {
         isFound: false,
       };
     });
+};
+
+const requestUpdate = (updatedIllustration) => {
+  const { BASE_URL, ILLUSTRATION_UPDATE } = config;
+  const uri = `${BASE_URL}${ILLUSTRATION_UPDATE}`;
+  return putJson({ body: updatedIllustration, url: uri })
+    .then((json) => {
+      return {
+        isUpdated: true,
+        illustration: json,
+      };
+    })
+    .catch((json) => {
+      return {
+        isUpdated: false,
+        illustration: json,
+      };
+    });
+};
+
+export const updateIllustration = (illustration) => (dispatch) => {
+  requestUpdate(illustration).then((data) => {
+    dispatch(update(data));
+  });
+//   todo add catch
 };

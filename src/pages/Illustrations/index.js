@@ -1,4 +1,4 @@
-import React, {useEffect, useMemo, useState} from "react";
+import React, {useEffect, useState} from "react";
 import Illustration from "./illustration/Illustration";
 import { useDispatch, useSelector } from "react-redux";
 import { deleteIllustration, fetchIllustrations } from "../../app/actions/illustration";
