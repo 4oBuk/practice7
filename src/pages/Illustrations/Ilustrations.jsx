@@ -8,7 +8,7 @@ import {
 import { makeStyles } from "@material-ui/core/styles";
 import { Link } from "react-router-dom";
 import Button from "../../components/Button";
-import { ILLUSTRATION_EDIT } from "../../constants/pages";
+import { ILLUSTRATION_EDIT, ILLUSTRATION_NEW } from "../../constants/pages";
 
 const getClasses = makeStyles(() => ({
   container: {
@@ -42,9 +42,8 @@ const Illustrations = () => {
   const ills = useSelector((state) => state.illustrations).illustrations;
   return (
     <>
-      {/*todo replace with constants*/}
       <div >
-        <Link to={"/illustrations/new"}>Add</Link>
+        <Link to={ILLUSTRATION_NEW}>Add</Link>
         <h2>Illustrations</h2>
       </div>
       <div className={classes.container}>

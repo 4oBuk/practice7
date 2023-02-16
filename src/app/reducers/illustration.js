@@ -19,13 +19,18 @@ export default function (state = initialState, action) {
       };
     }
     case ILLUSTRATION_DELETE: {
+      // if illustration was deleted
+      if(action.payload.isDeleted) {
+        return {
+          ...state,
+          illustrations: state.illustrations.filter(
+              (i) => i.id !== action.payload.id
+          ),
+        };
+      }
       return {
-        ...state,
-        // todo: rewrite this
-        illustrations: state.illustrations.filter(
-          (i) => i.id !== action.payload.id
-        ),
-      };
+        ...state
+      }
     }
     case ILLUSTRATION_GET_BY_ID: {
       const found = action.payload.isFound;
@@ -35,7 +40,6 @@ export default function (state = initialState, action) {
       };
     }
     case ILLUSTRATION_UPDATE: {
-      //   todo get message about result
       return {
         ...state,
       };

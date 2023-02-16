@@ -9,22 +9,27 @@ import { useDispatch } from "react-redux";
 import { createIllustration } from "../../../app/actions/illustration";
 
 const CreateIllustrationForm = () => {
-  const [newIllustration, setNewIllustration] = useState({});
+  const [newIllustration, setNewIllustration] = useState({
+    aigGenerated: false,
+  });
 
   const dispatch = useDispatch();
   // todo: clear form after adding
   const addIllustration = (e) => {
     // todo add validation
     dispatch(createIllustration(newIllustration));
+    setNewIllustration({
+      newIllustration: {},
+    });
   };
   const setArtistId = (e) => {
     newIllustration.artistId = parseInt(e.target.value);
     setNewIllustration({ ...newIllustration });
   };
   const setAiGenerated = (e) => {
-      const value = e.target.value;
-      newIllustration.aiGenerated = JSON.parse(value);
-      setNewIllustration({ ...newIllustration });
+    const value = e.target.value;
+    newIllustration.aiGenerated = JSON.parse(value);
+    setNewIllustration({ ...newIllustration });
   };
   const setName = (e) => {
     newIllustration.name = e.target.value;
@@ -45,7 +50,7 @@ const CreateIllustrationForm = () => {
         <FormLabel id="demo-radio-buttons-group-label">AI Generated</FormLabel>
         <RadioGroup
           aria-labelledby="demo-radio-buttons-group-label"
-          defaultValue="false"
+          defaultValue={newIllustration.aiGenerated ? "true" : "false"}
           name="radio-buttons-group"
           onChange={setAiGenerated}
         >

@@ -11,6 +11,7 @@ import {
 } from "../../../app/actions/illustration";
 import { useParams } from "react-router-dom";
 import TextField from "../../../components/TextField";
+import CreateIllustration from "../create/CreateIllustration";
 
 const UpdateIllustrationForm = () => {
   const [state, setState] = useState({
@@ -36,25 +37,23 @@ const UpdateIllustrationForm = () => {
     setState({ ...state });
   };
   const updateName = (e) => {
-    // I can put name of field as param and use only one function
     state.updatedIllustration.name = e.target.value;
     setState({ ...state });
   };
   const makeUpdate = (e) => {
-    // const update = {...requestedIllustration,}
-    //TODO refactor it, create copy of updated and change it;
-    state.updatedIllustration.userId = requestedIllustration.artist.id;
-    state.updatedIllustration.name =
+    let newIllustration = { ...requestedIllustration };
+    newIllustration.userId = requestedIllustration.artist.id;
+    newIllustration.name =
       state.updatedIllustration.name ?? requestedIllustration.name;
-    state.updatedIllustration.aiGenerated =
+    newIllustration.aiGenerated =
       state.updatedIllustration.aiGenerated ??
       requestedIllustration.aiGenerated;
-    dispatch(updateIllustration(state.updatedIllustration));
+    dispatch(updateIllustration(newIllustration));
   };
-  return (
-    <>
-      <h2>Update</h2>
-      {requestedIllustration != null && (
+  if (requestedIllustration != null) {
+    return (
+      <>
+        <h2>Update</h2>
         <>
           <div>
             <TextField
@@ -97,12 +96,14 @@ const UpdateIllustrationForm = () => {
             />
           </div>
         </>
-      )}
-      <Button onClick={makeUpdate} variant="contained">
-        Update
-      </Button>
-    </>
-  );
+        <Button onClick={makeUpdate} variant="contained">
+          Update
+        </Button>
+      </>
+    );
+  } else {
+    return <CreateIllustration />
+  }
 };
 
 export default UpdateIllustrationForm;
