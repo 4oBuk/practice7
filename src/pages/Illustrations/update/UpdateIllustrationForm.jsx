@@ -11,14 +11,13 @@ import {getIllustrationById, updateIllustration} from "../../../app/actions/illu
 import { useParams } from "react-router-dom";
 import TextField from "../../../components/TextField";
 
-const UpdateIllustration = () => {
+const UpdateIllustrationForm = () => {
   const [state, setState] = useState({
     componentDidMont: false,
     updatedIllustration: {},
   });
   const dispatch = useDispatch();
   const slug = useParams();
-  console.log(slug);
   useEffect(() => {
     if (!state.componentDidMont) {
       dispatch(getIllustrationById(slug.id));
@@ -104,4 +103,4 @@ const UpdateIllustration = () => {
   );
 };
 
-export default UpdateIllustration;
+export default UpdateIllustrationForm;

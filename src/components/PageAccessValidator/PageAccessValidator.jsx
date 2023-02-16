@@ -27,6 +27,8 @@ const PageAccessValidator = ({
   useEffect(() => {
     if (!user.isFetchingUser) {
       if (!user.isAuthorized) {
+        console.log(location.pathname);
+        console.log(JSON.stringify(locationSearch));
         changePage({
           locationSearch: {
             ...locationSearch,

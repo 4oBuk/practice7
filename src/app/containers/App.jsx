@@ -8,9 +8,8 @@ import PageLogin from "pageProviders/Login";
 import * as PAGES from "constants/pages";
 import { fetchUser } from "../actions/user";
 import Illustrations from "pages/Illustrations/index";
-import AddIllustration from "pages/Illustrations/illustration/AddNewIllustrationForm";
-import UpdateIllustration from "../../pages/Illustrations/illustration/UpdateIllustration";
-import PageAccessValidator from "../../components/PageAccessValidator";
+import CreateIllustration from "../../pages/Illustrations/create/CreateIllustration";
+import UpdateIllustration from "../../pages/Illustrations/update/UpdateIllustration";
 
 const App = () => {
   const [state, setState] = useState({
@@ -38,19 +37,13 @@ const App = () => {
               <PageInitial />
             </Route>
             <Route path={`/${PAGES.ILLUSTRATION_NEW}`}>
-              <PageAccessValidator>
-                <AddIllustration />
-              </PageAccessValidator>
+              <CreateIllustration />
             </Route>
             <Route path={`/${PAGES.ILLUSTRATION_EDIT}`}>
-              <PageAccessValidator>
-                <UpdateIllustration />
-              </PageAccessValidator>
+              <UpdateIllustration />
             </Route>
             <Route path={`/${PAGES.ILLUSTRATIONS}`}>
-              <PageAccessValidator>
-                <Illustrations />
-              </PageAccessValidator>
+              <Illustrations/>
             </Route>
             <Redirect from="*" to={`/${PAGES.INITIAL}`} />
           </Switch>

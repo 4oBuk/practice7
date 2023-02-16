@@ -10,13 +10,12 @@ import TextField from "../../../components/TextField";
 import { useDispatch } from "react-redux";
 import { createIllustration } from "../../../app/actions/illustration";
 
-const AddNewIllustrationForm = () => {
+const CreateIllustrationForm = () => {
   const [newIllustration, setNewIllustration] = useState({});
 
   const dispatch = useDispatch();
   // todo: clear form after adding
   const addIllustration = (e) => {
-    console.log(newIllustration);
     // todo add validation
     dispatch(createIllustration(newIllustration));
   };
@@ -71,4 +70,4 @@ const AddNewIllustrationForm = () => {
   );
 };
 
-export default AddNewIllustrationForm;
+export default CreateIllustrationForm;
