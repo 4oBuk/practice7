@@ -9,31 +9,52 @@ import { useDispatch } from "react-redux";
 import { createIllustration } from "../../../app/actions/illustration";
 
 const CreateIllustrationForm = () => {
-  const [newIllustration, setNewIllustration] = useState({
-    aigGenerated: false,
+  const [state, setState] = useState({
+    artistId: null,
+    name: "",
+    aiGenerated: false,
   });
 
   const dispatch = useDispatch();
-  // todo: clear form after adding
-  const addIllustration = (e) => {
+  const addIllustration = () => {
     // todo add validation
-    dispatch(createIllustration(newIllustration));
-    setNewIllustration({
-      newIllustration: {},
+
+    const newIllustration = {
+      artistId: state.artistId,
+      name: state.name,
+      aiGenerated: state.aiGenerated,
+    };
+    setState({
+      aiGenerated: false,
+      name: "",
+      artistId: null
     });
+    dispatch(createIllustration(newIllustration));
+    console.log(newIllustration);
   };
   const setArtistId = (e) => {
-    newIllustration.artistId = parseInt(e.target.value);
-    setNewIllustration({ ...newIllustration });
+    setState((state) => {
+      return {
+        ...state,
+        artistId: parseInt(e.target.value),
+      };
+    });
   };
   const setAiGenerated = (e) => {
-    const value = e.target.value;
-    newIllustration.aiGenerated = JSON.parse(value);
-    setNewIllustration({ ...newIllustration });
+    setState((state) => {
+      return {
+        ...state,
+        aiGenerated: JSON.parse(e.target.value),
+      };
+    });
   };
   const setName = (e) => {
-    newIllustration.name = e.target.value;
-    setNewIllustration({ ...newIllustration });
+    setState((state) => {
+      return {
+        ...state,
+        name: e.target.value,
+      };
+    });
   };
   return (
     <>
@@ -44,13 +65,14 @@ const CreateIllustrationForm = () => {
           label="User ID"
           variant="filled"
           onChange={setArtistId}
+          value={state.artistId ?? ''}
         />
       </div>
       <div>
         <FormLabel id="demo-radio-buttons-group-label">AI Generated</FormLabel>
         <RadioGroup
           aria-labelledby="demo-radio-buttons-group-label"
-          defaultValue={newIllustration.aiGenerated ? "true" : "false"}
+          value={state.aiGenerated ? "true" : "false"}
           name="radio-buttons-group"
           onChange={setAiGenerated}
         >
@@ -64,6 +86,7 @@ const CreateIllustrationForm = () => {
           label="Name"
           variant="filled"
           onChange={setName}
+          value={state.name}
         />
       </div>
       <Button variant="contained" onClick={addIllustration}>

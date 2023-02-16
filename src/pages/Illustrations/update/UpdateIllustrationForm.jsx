@@ -40,7 +40,7 @@ const UpdateIllustrationForm = () => {
     state.updatedIllustration.name = e.target.value;
     setState({ ...state });
   };
-  const makeUpdate = (e) => {
+  const makeUpdate = () => {
     let newIllustration = { ...requestedIllustration };
     newIllustration.userId = requestedIllustration.artist.id;
     newIllustration.name =
@@ -71,9 +71,7 @@ const UpdateIllustrationForm = () => {
             <RadioGroup
               id="aiGenerated"
               aria-labelledby="demo-radio-buttons-group-label"
-              defaultValue={
-                requestedIllustration.aiGenerated ? "true" : "false"
-              }
+              value={requestedIllustration.aiGenerated ? "true" : "false"}
               name="aiGenerated"
               onChange={updateAiGenerated}
             >
@@ -102,7 +100,7 @@ const UpdateIllustrationForm = () => {
       </>
     );
   } else {
-    return <CreateIllustration />
+    return <CreateIllustration />;
   }
 };
 
