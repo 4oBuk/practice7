@@ -30,7 +30,6 @@ export default function (state = initialState, action) {
     }
     case ILLUSTRATION_GET_BY_ID: {
       const found = action.payload.isFound;
-      console.log(found ?action.payload.illustration : null );
       return {
         ...state,
         requestedIllustration: found ? action.payload.illustration : null,

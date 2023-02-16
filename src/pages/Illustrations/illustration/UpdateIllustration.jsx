@@ -7,32 +7,47 @@ import {
   RadioGroup,
 } from "@material-ui/core";
 import { useDispatch, useSelector } from "react-redux";
-import { getIllustrationById } from "../../../app/actions/illustration";
+import {getIllustrationById, updateIllustration} from "../../../app/actions/illustration";
 import { useParams } from "react-router-dom";
 import TextField from "../../../components/TextField";
 
 const UpdateIllustration = () => {
-  console.log("state");
   const [state, setState] = useState({
     componentDidMont: false,
+    updatedIllustration: {},
   });
   const dispatch = useDispatch();
   const slug = useParams();
   useEffect(() => {
-    console.log("use effect");
     if (!state.componentDidMont) {
-      console.log("mounting");
       dispatch(getIllustrationById(slug.id));
       setState((prevState) => ({
         ...prevState,
         componentDidMont: true,
+        updatedIllustration: { id: slug.id },
       }));
     }
   }, []);
   const { requestedIllustration } = useSelector((state) => state.illustrations);
-  console.log(requestedIllustration);
+  const updateAiGenerated = (e) => {
+    const value = e.target.value;
+    state.updatedIllustration.aiGenerated = JSON.parse(value);
+    setState({ ...state });
+  };
+  const updateName = (e) => {
+    // I can put name of field as param and use only one function
+    const value = e.target.value;
+    state.updatedIllustration.name = value;
+    setState({ ...state });
+  };
   const makeUpdate = (e) => {
-    console.log(e.target);
+    // const update = {...requestedIllustration,}
+    // todo refactor it, create copy of updated and change it;
+    state.updatedIllustration.userId = requestedIllustration.artist.id;
+    state.updatedIllustration.name = state.updatedIllustration.name ?? requestedIllustration.name;
+    state.updatedIllustration.aiGenerated = state.updatedIllustration.aiGenerated ?? requestedIllustration.aiGenerated;
+    console.log(state.updatedIllustration);
+    dispatch(updateIllustration(state.updatedIllustration));
   };
   return (
     <>
@@ -41,8 +56,9 @@ const UpdateIllustration = () => {
         <>
           <div>
             <TextField
-              id="filled-basic"
+              id="outlined-read-only-input"
               label="User ID"
+              name="userId"
               variant="filled"
               value={requestedIllustration.artist.id}
             />
@@ -52,11 +68,13 @@ const UpdateIllustration = () => {
               AI Generated
             </FormLabel>
             <RadioGroup
+              id="aiGenerated"
               aria-labelledby="demo-radio-buttons-group-label"
               defaultValue={
                 requestedIllustration.aiGenerated ? "true" : "false"
               }
-              name="radio-buttons-group"
+              name="aiGenerated"
+              onChange={updateAiGenerated}
             >
               <FormControlLabel value="true" control={<Radio />} label="True" />
               <FormControlLabel
@@ -70,14 +88,15 @@ const UpdateIllustration = () => {
             <TextField
               id="filled-basic"
               label="Name"
+              name="illustrationName"
               variant="filled"
-              value={requestedIllustration.name}
-              onChange={makeUpdate}
+              defaultValue={requestedIllustration.name}
+              onChange={updateName}
             />
           </div>
         </>
       )}
-      <Button variant="contained" onClick={makeUpdate}>
+      <Button onClick={makeUpdate} variant="contained">
         Update
       </Button>
     </>
