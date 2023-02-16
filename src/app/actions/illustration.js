@@ -1,10 +1,11 @@
 import config from "../../config";
-import { fetchDelete, getJson, putJson } from "../../requests";
+import { fetchDelete, getJson, postJson, putJson } from "../../requests";
 import {
   ILLUSTRATION_GET_ALL,
   ILLUSTRATION_DELETE,
   ILLUSTRATION_GET_BY_ID,
   ILLUSTRATION_UPDATE,
+  ILLUSTRATION_ADD,
 } from "../constants/actionTypes";
 
 const receiveIllustrations = (illustrations) => ({
@@ -24,6 +25,11 @@ const removeIllustration = (data) => ({
 
 const getIllustration = (data) => ({
   type: ILLUSTRATION_GET_BY_ID,
+  payload: data,
+});
+
+const createNewIllustration = (data) => ({
+  type: ILLUSTRATION_ADD,
   payload: data,
 });
 
@@ -54,9 +60,9 @@ export const fetchIllustrations = () => (dispatch) => {
 
 const deleteById = (id) => {
   const { BASE_URL, ILLUSTRATION_DELETE } = config;
-  const uri = `${BASE_URL}${ILLUSTRATION_DELETE.replace(":id", id)}`;
+  const url = `${BASE_URL}${ILLUSTRATION_DELETE.replace(":id", id)}`;
   return fetchDelete({
-    url: uri,
+    url: url,
   })
     .then((response) => {
       return {
@@ -86,9 +92,9 @@ export const getIllustrationById = (id) => (dispatch) => {
 };
 const requestById = (id) => {
   const { BASE_URL, ILLUSTRATION_GET } = config;
-  const uri = `${BASE_URL}${ILLUSTRATION_GET.replace(":id", id)}`;
+  const url = `${BASE_URL}${ILLUSTRATION_GET.replace(":id", id)}`;
   return getJson({
-    url: uri,
+    url: url,
   })
     .then((json) => {
       return {
@@ -106,8 +112,8 @@ const requestById = (id) => {
 
 const requestUpdate = (updatedIllustration) => {
   const { BASE_URL, ILLUSTRATION_UPDATE } = config;
-  const uri = `${BASE_URL}${ILLUSTRATION_UPDATE}`;
-  return putJson({ body: updatedIllustration, url: uri })
+  const url = `${BASE_URL}${ILLUSTRATION_UPDATE}`;
+  return putJson({ body: updatedIllustration, url: url })
     .then((json) => {
       return {
         isUpdated: true,
@@ -117,7 +123,7 @@ const requestUpdate = (updatedIllustration) => {
     .catch((json) => {
       return {
         isUpdated: false,
-        illustration: json,
+        message: json,
       };
     });
 };
@@ -126,5 +132,33 @@ export const updateIllustration = (illustration) => (dispatch) => {
   requestUpdate(illustration).then((data) => {
     dispatch(update(data));
   });
-//   todo add catch
+  //   todo add catch
+};
+
+export const createIllustration = (newIllustration) => (dispatch) => {
+  addIllustration(newIllustration).then((data) => {
+    dispatch(createNewIllustration(data));
+  });
+  //   todo add catch
+};
+
+const addIllustration = (illustration) => {
+  const { BASE_URL, ILLUSTRATION_CREATE } = config;
+  const url = `${BASE_URL}${ILLUSTRATION_CREATE}`;
+  return postJson({
+    body: illustration,
+    url: url,
+  })
+    .then((json) => {
+      return {
+        created: true,
+        illustration: json,
+      };
+    })
+    .catch((json) => {
+      return {
+        created: false,
+        message: json,
+      };
+    });
 };

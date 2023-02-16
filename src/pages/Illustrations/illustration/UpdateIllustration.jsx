@@ -18,6 +18,7 @@ const UpdateIllustration = () => {
   });
   const dispatch = useDispatch();
   const slug = useParams();
+  console.log(slug);
   useEffect(() => {
     if (!state.componentDidMont) {
       dispatch(getIllustrationById(slug.id));
@@ -42,7 +43,7 @@ const UpdateIllustration = () => {
   };
   const makeUpdate = (e) => {
     // const update = {...requestedIllustration,}
-    // todo refactor it, create copy of updated and change it;
+    //TODO refactor it, create copy of updated and change it;
     state.updatedIllustration.userId = requestedIllustration.artist.id;
     state.updatedIllustration.name = state.updatedIllustration.name ?? requestedIllustration.name;
     state.updatedIllustration.aiGenerated = state.updatedIllustration.aiGenerated ?? requestedIllustration.aiGenerated;
@@ -101,9 +102,6 @@ const UpdateIllustration = () => {
       </Button>
     </>
   );
-  //     todo I can use value from request to deside what button to show
-  //     and use only one component for form
-  //   I can make user id unupdatable in form
 };
 
 export default UpdateIllustration;

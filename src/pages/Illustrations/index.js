@@ -39,6 +39,7 @@ const Illustrations = () => {
   const ills = useSelector((state) => state.illustrations).illustrations;
   return (
     <>
+      {/*todo replace with constants*/}
       <Link to={"/illustrations/new"}>Add</Link>
       <h2>Illustrations</h2>
       <div className={classes.container}>
