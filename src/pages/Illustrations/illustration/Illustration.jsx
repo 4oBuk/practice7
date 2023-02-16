@@ -1,9 +1,5 @@
 import React from "react";
-import { Button } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
-import { Link } from "react-router-dom";
-import { deleteById } from "../../../app/actions/illustration";
-// todo move to components folder
 const getClasses = makeStyles(() => ({
   container: {
     display: "flex",

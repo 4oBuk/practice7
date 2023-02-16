@@ -7,8 +7,8 @@ import {
 } from "../../app/actions/illustration";
 import { makeStyles } from "@material-ui/core/styles";
 import { Link } from "react-router-dom";
-import { Button } from "@material-ui/core";
-import {ILLUSTRATION_EDIT} from "../../constants/pages";
+import Button from "../../components/Button";
+import { ILLUSTRATION_EDIT } from "../../constants/pages";
 
 const getClasses = makeStyles(() => ({
   container: {
@@ -23,7 +23,6 @@ const getClasses = makeStyles(() => ({
 
 const Illustrations = () => {
   const classes = getClasses();
-  // useSelector((state) => state.illustrations).illustrations,
   const [state, setState] = useState({
     componentDidMount: false,
   });
@@ -44,8 +43,10 @@ const Illustrations = () => {
   return (
     <>
       {/*todo replace with constants*/}
-      <Link to={"/illustrations/new"}>Add</Link>
-      <h2>Illustrations</h2>
+      <div >
+        <Link to={"/illustrations/new"}>Add</Link>
+        <h2>Illustrations</h2>
+      </div>
       <div className={classes.container}>
         <p className={classes.item}>ID</p>
         <p className={classes.item}>Name</p>
@@ -58,7 +59,9 @@ const Illustrations = () => {
             <div className={classes.container} key={i.id}>
               <Illustration illustration={i} />
               <div className={classes.item}>
-                <Link to={`${ILLUSTRATION_EDIT}`.replace(":id", i.id)}>edit</Link>
+                <Link to={`${ILLUSTRATION_EDIT}`.replace(":id", i.id)}>
+                  edit
+                </Link>
                 <Button onClick={(e) => deleteButtonClick(e, i.id)}>
                   delete
                 </Button>

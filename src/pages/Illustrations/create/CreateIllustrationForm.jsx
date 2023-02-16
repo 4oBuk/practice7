@@ -1,11 +1,9 @@
 import React, { useState } from "react";
-import {
-  Button,
-  FormControlLabel,
-  FormLabel,
-  Radio,
-  RadioGroup,
-} from "@material-ui/core";
+import Button from "../../../components/Button";
+import FormControlLabel from "../../../components/FormControlLabel";
+import FormLabel from "../../../components/FormLabel";
+import Radio from "../../../components/Radio";
+import RadioGroup from "../../../components/RadioGroup";
 import TextField from "../../../components/TextField";
 import { useDispatch } from "react-redux";
 import { createIllustration } from "../../../app/actions/illustration";
