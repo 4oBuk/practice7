@@ -10,6 +10,7 @@ import { fetchUser } from "../actions/user";
 import Illustrations from "pages/Illustrations/index";
 import AddIllustration from "pages/Illustrations/illustration/AddNewIllustrationForm";
 import UpdateIllustration from "../../pages/Illustrations/illustration/UpdateIllustration";
+import PageAccessValidator from "../../components/PageAccessValidator";
 
 const App = () => {
   const [state, setState] = useState({
@@ -37,13 +38,19 @@ const App = () => {
               <PageInitial />
             </Route>
             <Route path={`/${PAGES.ILLUSTRATION_NEW}`}>
-              <AddIllustration />
+              <PageAccessValidator>
+                <AddIllustration />
+              </PageAccessValidator>
             </Route>
             <Route path={`/${PAGES.ILLUSTRATION_EDIT}`}>
-              <UpdateIllustration />
+              <PageAccessValidator>
+                <UpdateIllustration />
+              </PageAccessValidator>
             </Route>
             <Route path={`/${PAGES.ILLUSTRATIONS}`}>
-              <Illustrations />
+              <PageAccessValidator>
+                <Illustrations />
+              </PageAccessValidator>
             </Route>
             <Redirect from="*" to={`/${PAGES.INITIAL}`} />
           </Switch>

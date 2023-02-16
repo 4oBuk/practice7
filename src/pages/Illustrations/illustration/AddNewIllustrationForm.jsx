@@ -14,6 +14,7 @@ const AddNewIllustrationForm = () => {
   const [newIllustration, setNewIllustration] = useState({});
 
   const dispatch = useDispatch();
+  // todo: clear form after adding
   const addIllustration = (e) => {
     console.log(newIllustration);
     // todo add validation
