@@ -7,7 +7,10 @@ import {
   RadioGroup,
 } from "@material-ui/core";
 import { useDispatch, useSelector } from "react-redux";
-import {getIllustrationById, updateIllustration} from "../../../app/actions/illustration";
+import {
+  getIllustrationById,
+  updateIllustration,
+} from "../../../app/actions/illustration";
 import { useParams } from "react-router-dom";
 import TextField from "../../../components/TextField";
 
@@ -36,17 +39,18 @@ const UpdateIllustrationForm = () => {
   };
   const updateName = (e) => {
     // I can put name of field as param and use only one function
-    const value = e.target.value;
-    state.updatedIllustration.name = value;
+    state.updatedIllustration.name = e.target.value;
     setState({ ...state });
   };
   const makeUpdate = (e) => {
     // const update = {...requestedIllustration,}
     //TODO refactor it, create copy of updated and change it;
     state.updatedIllustration.userId = requestedIllustration.artist.id;
-    state.updatedIllustration.name = state.updatedIllustration.name ?? requestedIllustration.name;
-    state.updatedIllustration.aiGenerated = state.updatedIllustration.aiGenerated ?? requestedIllustration.aiGenerated;
-    console.log(state.updatedIllustration);
+    state.updatedIllustration.name =
+      state.updatedIllustration.name ?? requestedIllustration.name;
+    state.updatedIllustration.aiGenerated =
+      state.updatedIllustration.aiGenerated ??
+      requestedIllustration.aiGenerated;
     dispatch(updateIllustration(state.updatedIllustration));
   };
   return (
