@@ -9,6 +9,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { createIllustration } from "../../../app/actions/illustration";
 import { ILLUSTRATIONS } from "../../../constants/pages";
 import { Link } from "react-router-dom";
+import * as PAGES from "../../../constants/pages";
+import useLocationSearch from "../../../hooks/useLocationSearch";
+import useChangePage from "../../../hooks/useChangePage";
 
 const CreateIllustrationForm = () => {
   const [state, setState] = useState({
@@ -17,6 +20,8 @@ const CreateIllustrationForm = () => {
     aiGenerated: false,
   });
 
+  const locationSearch = useLocationSearch();
+  const changePage = useChangePage();
   const dispatch = useDispatch();
   const addIllustration = () => {
     const newIllustration = {
@@ -57,6 +62,12 @@ const CreateIllustrationForm = () => {
       };
     });
   };
+  if (createdIllustration !== undefined && createdIllustration.created) {
+    changePage({
+      locationSearch,
+      path: `/${PAGES.ILLUSTRATIONS}`,
+    });
+  }
   return (
     <>
       <h2>New Illustration</h2>
@@ -101,15 +112,6 @@ const CreateIllustrationForm = () => {
             <p>Artist Id: id of existed artist </p>
             <p>Name: cannot be empty</p>
             <p>AI Generated: false by default</p>
-          </div>
-        )}
-      {createdIllustration !== undefined &&
-        createdIllustration.created && ( //if illustration was created
-          <div>
-            <p>
-              Illustration created with new id
-              {` ${createdIllustration.illustration.id}`}
-            </p>
           </div>
         )}
     </>

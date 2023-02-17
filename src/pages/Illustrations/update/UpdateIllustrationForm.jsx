@@ -9,15 +9,21 @@ import {
   getIllustrationById,
   updateIllustration,
 } from "../../../app/actions/illustration";
-import { useParams } from "react-router-dom";
+import {Link, useParams} from "react-router-dom";
 import TextField from "../../../components/TextField";
 import CreateIllustration from "../create/CreateIllustration";
+import {ILLUSTRATIONS} from "../../../constants/pages";
+import * as PAGES from "../../../constants/pages";
+import useLocationSearch from "../../../hooks/useLocationSearch";
+import useChangePage from "../../../hooks/useChangePage";
 
 const UpdateIllustrationForm = () => {
   const [state, setState] = useState({
     componentDidMont: false,
     updatedIllustration: {},
   });
+  const locationSearch = useLocationSearch();
+  const changePage = useChangePage();
   const dispatch = useDispatch();
   const slug = useParams();
   useEffect(() => {
@@ -51,6 +57,12 @@ const UpdateIllustrationForm = () => {
       requestedIllustration.aiGenerated;
     dispatch(updateIllustration(newIllustration));
   };
+  if(updatedIllustration!== undefined && updatedIllustration.isUpdated) {
+    changePage({
+      locationSearch,
+      path: `/${PAGES.ILLUSTRATIONS}`,
+    });
+  }
   if (requestedIllustration != null) {
     return (
       <>
@@ -98,6 +110,7 @@ const UpdateIllustrationForm = () => {
         <Button onClick={makeUpdate} variant="contained">
           Update
         </Button>
+        <Link to={`/${ILLUSTRATIONS}`}>Cancel</Link>
         {updatedIllustration !== undefined &&
           !updatedIllustration.isUpdated && ( //if illustration wasn't updated
             <div>
