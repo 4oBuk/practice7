@@ -2,7 +2,8 @@ import {
   ILLUSTRATION_GET_ALL,
   ILLUSTRATION_GET_BY_ID,
   ILLUSTRATION_DELETE,
-  ILLUSTRATION_UPDATE, ILLUSTRATION_ADD,
+  ILLUSTRATION_UPDATE,
+  ILLUSTRATION_ADD,
 } from "../constants/actionTypes";
 
 const initialState = {
@@ -20,17 +21,17 @@ export default function (state = initialState, action) {
     }
     case ILLUSTRATION_DELETE: {
       // if illustration was deleted
-      if(action.payload.isDeleted) {
+      if (action.payload.isDeleted) {
         return {
           ...state,
           illustrations: state.illustrations.filter(
-              (i) => i.id !== action.payload.id
+            (i) => i.id !== action.payload.id
           ),
         };
       }
       return {
-        ...state
-      }
+        ...state,
+      };
     }
     case ILLUSTRATION_GET_BY_ID: {
       const found = action.payload.isFound;
@@ -46,10 +47,24 @@ export default function (state = initialState, action) {
     }
     case ILLUSTRATION_ADD: {
       const created = action.payload.created;
-      return {
-        ...state,
-        createdIllustration: created ? action.payload.illustration : null,
-      };
+      if (created) {
+        return {
+          ...state,
+          createdIllustration: {
+            created: created,
+            illustration: action.payload.illustration,
+          },
+        };
+      }
+      else {
+        return {
+          ...state,
+          createdIllustration: {
+            created: created,
+            illustration: {},
+          },
+        };
+      }
     }
     default:
       return state;
