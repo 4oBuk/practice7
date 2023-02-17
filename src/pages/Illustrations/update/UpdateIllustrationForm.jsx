@@ -31,6 +31,7 @@ const UpdateIllustrationForm = () => {
     }
   }, []);
   const { requestedIllustration } = useSelector((state) => state.illustrations);
+  const { updatedIllustration } = useSelector((state) => state.illustrations);
   const updateAiGenerated = (e) => {
     const value = e.target.value;
     state.updatedIllustration.aiGenerated = JSON.parse(value);
@@ -97,6 +98,21 @@ const UpdateIllustrationForm = () => {
         <Button onClick={makeUpdate} variant="contained">
           Update
         </Button>
+        {updatedIllustration !== undefined &&
+          !updatedIllustration.isUpdated && ( //if illustration wasn't updated
+            <div>
+              <p>Failed to update</p>
+              <p>Check your input data</p>
+            </div>
+          )}
+        {updatedIllustration !== undefined &&
+          updatedIllustration.isUpdated && ( //if was updated
+            <div>
+              <p>
+                Illustration updated!
+              </p>
+            </div>
+          )}
       </>
     );
   } else {

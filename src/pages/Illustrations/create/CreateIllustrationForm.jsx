@@ -94,19 +94,24 @@ const CreateIllustrationForm = () => {
         Add
       </Button>
       <Link to={`/${ILLUSTRATIONS}`}>Cancel</Link>
-      {createdIllustration!== undefined && !createdIllustration.created && (//if illustration wasn't created
-        <div>
-          <p>Enter data about new illustration</p>
-          <p>Artist Id: id of existed artist </p>
-          <p>Name: cannot be empty</p>
-          <p>AI Generated: false by default</p>
-        </div>
-      )}
-      {createdIllustration!== undefined && createdIllustration.created && (//if illustration was created
+      {createdIllustration !== undefined &&
+        !createdIllustration.created && ( //if illustration wasn't created
           <div>
-            <p>Illustration created with new id {createdIllustration.illustration.id}</p>
+            <p>Enter data about new illustration</p>
+            <p>Artist Id: id of existed artist </p>
+            <p>Name: cannot be empty</p>
+            <p>AI Generated: false by default</p>
           </div>
-      )}
+        )}
+      {createdIllustration !== undefined &&
+        createdIllustration.created && ( //if illustration was created
+          <div>
+            <p>
+              Illustration created with new id
+              {` ${createdIllustration.illustration.id}`}
+            </p>
+          </div>
+        )}
     </>
   );
 };

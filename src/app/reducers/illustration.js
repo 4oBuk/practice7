@@ -5,6 +5,7 @@ import {
   ILLUSTRATION_UPDATE,
   ILLUSTRATION_ADD,
 } from "../constants/actionTypes";
+import { act } from "react-dom/test-utils";
 
 const initialState = {
   illustrations: [],
@@ -41,30 +42,24 @@ export default function (state = initialState, action) {
       };
     }
     case ILLUSTRATION_UPDATE: {
+      const isUpdated = action.payload.isUpdated;
       return {
         ...state,
+        updatedIllustration: {
+          isUpdated: isUpdated,
+          illustration: isUpdated ? action.payload.illustration : {},
+        },
       };
     }
     case ILLUSTRATION_ADD: {
       const created = action.payload.created;
-      if (created) {
-        return {
-          ...state,
-          createdIllustration: {
-            created: created,
-            illustration: action.payload.illustration,
-          },
-        };
-      }
-      else {
-        return {
-          ...state,
-          createdIllustration: {
-            created: created,
-            illustration: {},
-          },
-        };
-      }
+      return {
+        ...state,
+        createdIllustration: {
+          created: created,
+          illustration: created ? action.payload.illustration : {},
+        },
+      };
     }
     default:
       return state;
