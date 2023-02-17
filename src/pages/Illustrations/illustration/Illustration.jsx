@@ -1,14 +1,14 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
+
 const getClasses = makeStyles(() => ({
   container: {
     display: "flex",
-    flexDirection: "row",
+    flexWrap: "wrap",
     justifyContent: "center",
-    order: 4,
     width: "70%",
   },
-  item: { flexGrow: 1 },
+  item: { flex: 1 },
 }));
 const Illustration = ({ illustration }) => {
   const classes = getClasses();

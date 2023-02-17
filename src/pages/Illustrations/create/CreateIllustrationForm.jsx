@@ -53,7 +53,6 @@ const CreateIllustrationForm = () => {
     });
   };
   const { createdIllustration } = useSelector((state) => state.illustrations);
-  console.log(createdIllustration);
   const setName = (e) => {
     setState((state) => {
       return {

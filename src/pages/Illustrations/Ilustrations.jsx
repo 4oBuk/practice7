@@ -13,12 +13,10 @@ import { ILLUSTRATION_EDIT, ILLUSTRATION_NEW } from "../../constants/pages";
 const getClasses = makeStyles(() => ({
   container: {
     display: "flex",
-    flexDirection: "row",
+    flexWrap: "wrap",
     justifyContent: "center",
-    order: 4,
-    width: "70%",
   },
-  item: { flexGrow: 1 },
+  item: { flex:1 },
 }));
 
 const Illustrations = () => {

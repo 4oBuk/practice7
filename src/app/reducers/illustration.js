@@ -16,7 +16,6 @@ export default function (state = initialState, action) {
     case ILLUSTRATION_GET_ALL: {
       const { payload } = action;
       return {
-        ...state,
         illustrations: payload,
       };
     }

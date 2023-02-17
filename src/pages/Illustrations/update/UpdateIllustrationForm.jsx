@@ -9,10 +9,10 @@ import {
   getIllustrationById,
   updateIllustration,
 } from "../../../app/actions/illustration";
-import {Link, useParams} from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import TextField from "../../../components/TextField";
 import CreateIllustration from "../create/CreateIllustration";
-import {ILLUSTRATIONS} from "../../../constants/pages";
+import { ILLUSTRATIONS } from "../../../constants/pages";
 import * as PAGES from "../../../constants/pages";
 import useLocationSearch from "../../../hooks/useLocationSearch";
 import useChangePage from "../../../hooks/useChangePage";
@@ -57,7 +57,8 @@ const UpdateIllustrationForm = () => {
       requestedIllustration.aiGenerated;
     dispatch(updateIllustration(newIllustration));
   };
-  if(updatedIllustration!== undefined && updatedIllustration.isUpdated) {
+  if (updatedIllustration !== undefined && updatedIllustration.isUpdated) {
+    console.log("redirect");
     changePage({
       locationSearch,
       path: `/${PAGES.ILLUSTRATIONS}`,
@@ -84,7 +85,7 @@ const UpdateIllustrationForm = () => {
             <RadioGroup
               id="aiGenerated"
               aria-labelledby="demo-radio-buttons-group-label"
-              value={requestedIllustration.aiGenerated ? "true" : "false"}
+              defaultValue={requestedIllustration.aiGenerated ? "true" : "false"}
               name="aiGenerated"
               onChange={updateAiGenerated}
             >
@@ -116,14 +117,6 @@ const UpdateIllustrationForm = () => {
             <div>
               <p>Failed to update</p>
               <p>Check your input data</p>
-            </div>
-          )}
-        {updatedIllustration !== undefined &&
-          updatedIllustration.isUpdated && ( //if was updated
-            <div>
-              <p>
-                Illustration updated!
-              </p>
             </div>
           )}
       </>
