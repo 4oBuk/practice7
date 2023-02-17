@@ -43,7 +43,7 @@ const Illustrations = () => {
   return (
     <>
       <div >
-        <Link to={ILLUSTRATION_NEW}>Add</Link>
+        <Link to={`/${ILLUSTRATION_NEW}`}>Add</Link>
         <h2>Illustrations</h2>
       </div>
       <div className={classes.container}>

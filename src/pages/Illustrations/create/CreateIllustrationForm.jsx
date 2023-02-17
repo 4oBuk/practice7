@@ -7,6 +7,8 @@ import RadioGroup from "../../../components/RadioGroup";
 import TextField from "../../../components/TextField";
 import { useDispatch } from "react-redux";
 import { createIllustration } from "../../../app/actions/illustration";
+import { ILLUSTRATIONS } from "../../../constants/pages";
+import {Link} from "react-router-dom";
 
 const CreateIllustrationForm = () => {
   const [state, setState] = useState({
@@ -92,6 +94,7 @@ const CreateIllustrationForm = () => {
       <Button variant="contained" onClick={addIllustration}>
         Add
       </Button>
+      <Link to={`/${ILLUSTRATIONS}`}>Cancel</Link>
     </>
   );
 };
